@@ -76,3 +76,8 @@
   font-size: 0.9rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+.cita-pasada {
+  opacity: 0.5;          /* 👈 se ven opacas */
+  background-color: #999; /* opcional: color gris */
+}

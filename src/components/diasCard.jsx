@@ -13,9 +13,12 @@ export default function DiasCard({ day, month, year, onClose, citasUsuario }) {
 
   // Ordenarlas por hora y minuto
   const citasOrdenadas = [...citasDelDia].sort((a, b) => {
-    if (a.hora !== b.hora) return a.hora - b.hora;
-    return a.minuto - b.minuto;
+    if (Number(a.hora) !== Number(b.hora)) return Number(a.hora) - Number(b.hora);
+    return Number(a.minuto) - Number(b.minuto);
   });
+
+  // Hora actual para comparar
+  const ahora = new Date();
 
   return (
     <div className="dias-card-overlay">
@@ -29,21 +32,37 @@ export default function DiasCard({ day, month, year, onClose, citasUsuario }) {
 
         <div className="dias-card-body">
           {citasOrdenadas.length > 0 ? (
-            citasOrdenadas.map((c) => (
-              <div key={c._id} className="cita-box">
-                <p>
-                  <strong>Lugar:</strong> {c.lugar}
-                </p>
-                <p>
-                  <strong>Hora:</strong> {c.hora.toString().padStart(2, "0")}:
-                  {c.minuto.toString().padStart(2, "0")}
-                </p>
-                <p>
-                  <strong>Usuario:</strong> {c.usuario.nombre}{" "}
-                  {c.usuario.apellido}
-                </p>
-              </div>
-            ))
+            citasOrdenadas.map((c) => {
+              // 🔑 Convertir hora y minuto a número
+              const citaDate = new Date(
+                year,
+                month,
+                day,
+                Number(c.hora),
+                Number(c.minuto)
+              );
+              const esPasada = citaDate < ahora;
+
+              return (
+                <div
+                  key={c._id}
+                  className={`cita-box ${esPasada ? "cita-pasada" : ""}`}
+                >
+                  <p>
+                    <strong>Lugar:</strong> {c.lugar}
+                  </p>
+                  <p>
+                    <strong>Hora:</strong>{" "}
+                    {String(c.hora).padStart(2, "0")}:
+                    {String(c.minuto).padStart(2, "0")}
+                  </p>
+                  <p>
+                    <strong>Usuario:</strong> {c.usuario.nombre}{" "}
+                    {c.usuario.apellido}
+                  </p>
+                </div>
+              );
+            })
           ) : (
             <p className="sin-citas">No hay citas para este día.</p>
           )}
