@@ -43,14 +43,15 @@
 
 /* cuadrícula del calendario */
 .calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 120px);
-  grid-auto-rows: 100px; /* filas automáticas según contenido */
   border: 1px solid #bdbdbd;
   background: #fff;
-  justify-content: center;
 }
-/* cabecera de días */
+
+.calendar-day-headers {
+  display: grid;
+  grid-template-columns: repeat(7, 120px);
+}
+
 .calendar-day-header {
   background: #00b3e6;
   color: #fff;
@@ -60,6 +61,12 @@
   border-right: 1px solid #fff;
   border-bottom: 1px solid #fff;
   font-size: 1rem;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 120px);
+  grid-auto-rows: 100px;
 }
 
 .calendar-day-header:last-child {

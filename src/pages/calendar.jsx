@@ -55,20 +55,24 @@ const Calendar = () => {
           <button onClick={nextMonth}>→</button>
         </div>
         <div className="calendar-grid">
-          {["DOMINGO","LUNES","MARTES","MIÉRCOLES","JUEVES","VIERNES","SÁBADO"].map(d => (
-            <div key={d} className="calendar-day-header">{d}</div>
-          ))}
-          {daysArray.map((day, i) => (
-            <div
-              key={i}
-              className={`calendar-cell${day ? "" : " empty"}`}
-              onClick={() => day && setSelectedDay(day)}
-              style={{ cursor: day ? "pointer" : "default" }}
-            >
-              {day || ""}
-            </div>
-          ))}
-        </div>
+  <div className="calendar-day-headers">
+    {["DOMINGO","LUNES","MARTES","MIÉRCOLES","JUEVES","VIERNES","SÁBADO"].map(d => (
+      <div key={d} className="calendar-day-header">{d}</div>
+    ))}
+  </div>
+  <div className="calendar-days">
+    {daysArray.map((day, i) => (
+      <div
+        key={i}
+        className={`calendar-cell${day ? "" : " empty"}`}
+        onClick={() => day && setSelectedDay(day)}
+        style={{ cursor: day ? "pointer" : "default" }}
+      >
+        {day || ""}
+      </div>
+    ))}
+  </div>
+</div>
       </div>
 
       {selectedDay && (
