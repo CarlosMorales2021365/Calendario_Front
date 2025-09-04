@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import DiasCard from "../components/diasCard";
 import { getCitas } from "../services/api.jsx";
-import '../../public/styles/calendar.css';
+import "../../public/styles/calendar.css";
 
 const Calendar = () => {
   const today = new Date();
@@ -35,55 +35,77 @@ const Calendar = () => {
 
   // Traer todas las citas al montar el componente
   useEffect(() => {
-  const fetchCitas = async () => {
-    const res = await getCitas();
-    console.log("Citas recibidas:", res); // depuración
-    if (res.success) setCitasUsuario(res.citas);
-    else setCitasUsuario([]);
-  };
-  fetchCitas();
-}, []);
+    const fetchCitas = async () => {
+      const res = await getCitas();
+      console.log("Citas recibidas:", res); // depuración
+      if (res.success) setCitasUsuario(res.citas);
+      else setCitasUsuario([]);
+    };
+    fetchCitas();
+  }, []);
 
   return (
     <>
-    <br />
-    <br />
+      <br />
+      <br />
       <div className="calendar-container">
-        <div className="calendar-header">{months[month].toUpperCase()} {year}</div>
+        <div className="calendar-header">
+          {months[month].toUpperCase()} {year}
+        </div>
         <div className="calendar-controls">
           <button onClick={prevMonth}>←</button>
           <button onClick={nextMonth}>→</button>
         </div>
+
         <div className="calendar-grid">
-  <div className="calendar-day-headers">
-    {["DOMINGO","LUNES","MARTES","MIÉRCOLES","JUEVES","VIERNES","SÁBADO"].map(d => (
-      <div key={d} className="calendar-day-header">{d}</div>
-    ))}
-  </div>
-  <div className="calendar-days">
-    {daysArray.map((day, i) => (
-      <div
-        key={i}
-        className={`calendar-cell${day ? "" : " empty"}`}
-        onClick={() => day && setSelectedDay(day)}
-        style={{ cursor: day ? "pointer" : "default" }}
-      >
-        {day || ""}
-      </div>
-    ))}
-  </div>
-</div>
+          <div className="calendar-day-headers">
+            {["DOMINGO","LUNES","MARTES","MIÉRCOLES","JUEVES","VIERNES","SÁBADO"].map(d => (
+              <div key={d} className="calendar-day-header">{d}</div>
+            ))}
+          </div>
+
+          <div className="calendar-days">
+            {daysArray.map((day, i) => {
+              if (!day) {
+                return (
+                  <div key={i} className="calendar-cell empty">
+                    {""}
+                  </div>
+                );
+              }
+
+              // Formato de fecha que usa tu API (ajústalo si cambia)
+              const fechaDisplay = `${day.toString().padStart(2, "0")}-${(month + 1)
+                .toString()
+                .padStart(2, "0")}-${year}`;
+
+              // Verificar si ese día tiene citas
+              const tieneCitas = citasUsuario.some((c) => c.fecha === fechaDisplay);
+
+              return (
+                <div
+                  key={i}
+                  className={`calendar-cell ${tieneCitas ? "tiene-cita" : ""}`}
+                  onClick={() => setSelectedDay(day)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {day}
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       {selectedDay && (
-  <DiasCard
-    day={selectedDay}
-    month={month}
-    year={year}
-    onClose={() => setSelectedDay(null)}
-    citasUsuario={citasUsuario}
-  />
-)}
+        <DiasCard
+          day={selectedDay}
+          month={month}
+          year={year}
+          onClose={() => setSelectedDay(null)}
+          citasUsuario={citasUsuario}
+        />
+      )}
     </>
   );
 };
