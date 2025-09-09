@@ -9,15 +9,34 @@ const apiCitas = axios.create({
 // Interceptor para REQUEST → agrega token
 apiCitas.interceptors.request.use(
   (config) => {
-    if (
-      !config.url.includes("/auth/login") &&
-      !config.url.includes("/auth/register")
-    ) {
+    if (!config.url.includes("/auth/login") && !config.url.includes("/auth/register")) {
       const token = localStorage.getItem("token");
-      if (token) {
+      if (!token) return Promise.reject(new Error("No autorizado"));
+
+      try {
+        const parts = token.split(".");
+        if (parts.length !== 3) throw new Error("Token inválido");
+
+        const payload = JSON.parse(atob(parts[1]));
+        const now = Math.floor(Date.now() / 1000);
+
+        if (payload.exp < now) {
+          localStorage.removeItem("token");
+          toast.error("⚠️ Tu sesión ha expirado");
+          // Lanzar evento global
+          window.dispatchEvent(new Event("logout"));
+          return Promise.reject(new Error("Token expirado"));
+        }
+
         config.headers.Authorization = `Bearer ${token}`;
+      } catch (err) {
+        localStorage.removeItem("token");
+        toast.error("⚠️ Token inválido");
+        window.dispatchEvent(new Event("logout"));
+        return Promise.reject(new Error("Token inválido"));
       }
     }
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -28,16 +47,9 @@ apiCitas.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // ⚠️ Token expirado o inválido
       localStorage.removeItem("token");
-
-      // Notificación al usuario
-      toast.error("⚠️ Tu sesión ha expirado, inicia sesión nuevamente.");
-
-      // Espera 2.5s antes de redirigir
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 2500);
+      toast.error("⚠️ Tu sesión ha expirado");
+      window.dispatchEvent(new Event("logout"));
     }
     return Promise.reject(error);
   }
