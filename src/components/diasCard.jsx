@@ -33,7 +33,7 @@ export default function DiasCard({ day, month, year, onClose, citasUsuario }) {
         <div className="dias-card-body">
           {citasOrdenadas.length > 0 ? (
             citasOrdenadas.map((c) => {
-              // 🔑 Convertir hora y minuto a número
+              // 🔑 Crear fecha/hora de la cita
               const citaDate = new Date(
                 year,
                 month,
@@ -49,16 +49,19 @@ export default function DiasCard({ day, month, year, onClose, citasUsuario }) {
                   className={`cita-box ${esPasada ? "cita-pasada" : ""}`}
                 >
                   <p>
-                    <strong>Lugar:</strong> {c.lugar}
-                  </p>
-                  <p>
                     <strong>Hora:</strong>{" "}
                     {String(c.hora).padStart(2, "0")}:
                     {String(c.minuto).padStart(2, "0")}
                   </p>
                   <p>
-                    <strong>Usuario:</strong> {c.usuario.nombre}{" "}
-                    {c.usuario.apellido}
+                    <strong>Lugar:</strong> {c.lugar}
+                  </p>
+                  <p>
+                    <strong>Candidato:</strong> {c.candidato}
+                  </p>
+                  <p>
+                    <strong>Usuario:</strong> {c.usuario?.nombre}{" "}
+                    {c.usuario?.apellido}
                   </p>
                 </div>
               );

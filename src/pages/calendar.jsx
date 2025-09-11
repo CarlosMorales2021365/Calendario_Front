@@ -65,30 +65,37 @@ const Calendar = () => {
 
           <div className="calendar-days">
             {daysArray.map((day, i) => {
-              if (!day) {
-                return (
-                  <div key={i} className="calendar-cell empty">
-                    {""}
-                  </div>
-                );
-              }
+              if (!day) return <div key={i} className="calendar-cell empty"></div>;
 
-              // Formato de fecha que usa tu API (ajústalo si cambia)
               const fechaDisplay = `${day.toString().padStart(2, "0")}-${(month + 1)
                 .toString()
                 .padStart(2, "0")}-${year}`;
 
-              // Verificar si ese día tiene citas
-              const tieneCitas = citasUsuario.some((c) => c.fecha === fechaDisplay);
+              // Filtrar y ordenar por hora
+              const citasDelDia = citasUsuario
+                .filter((c) => c.fecha === fechaDisplay)
+                .sort((a, b) => a.hora - b.hora || a.minuto - b.minuto);
 
               return (
                 <div
                   key={i}
-                  className={`calendar-cell ${tieneCitas ? "tiene-cita" : ""}`}
+                  className={`calendar-cell ${citasDelDia.length > 0 ? "tiene-cita" : ""}`}
                   onClick={() => setSelectedDay(day)}
-                  style={{ cursor: "pointer" }}
                 >
-                  {day}
+                  <div className="calendar-day-number">{day}</div>
+                  <div className="calendar-citas-preview">
+  {citasDelDia.slice(0, 1).map((cita, idx) => (
+    <div key={idx} className="cita-mini">
+      {String(cita.hora).padStart(1, "0")}:
+      {String(cita.minuto).padStart(1, "0")} – {cita.candidato}
+    </div>
+  ))}
+  {citasDelDia.length > 1 && (
+    <div className="cita-mini mas-citas">
+      +{citasDelDia.length - 1} más
+    </div>
+  )}
+</div>
                 </div>
               );
             })}
