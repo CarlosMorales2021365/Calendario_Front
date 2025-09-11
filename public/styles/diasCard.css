@@ -21,17 +21,18 @@
   width: 320px;         
   height: 400px;         
   position: relative;
-  overflow-y: auto;       /* scroll vertical */
+  overflow-y: auto;
   overflow-x: hidden;     
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
+/* Contenedor del cuerpo */
 .dias-card-body {
   display: flex;
   flex-direction: column;
-  gap: 12px;     /* 👈 espacio entre tarjetas */
+  gap: 12px;
   margin-top: 10px;
   width: 100%;
 }
@@ -39,25 +40,24 @@
 /* Mensaje cuando no hay citas */
 .sin-citas {
   font-size: 0.95rem;
-  color: #666;
+  color: #333333; /* gris oscuro */
   text-align: center;
   margin-top: 20px;
 }
 
-/* Botón de cerrar circular que se mueve con el scroll */
+/* Botón de cerrar */
 .close-btn {
   position: sticky;
   top: 8px;
-  margin-left: auto;   /* lo manda al lado derecho sin trucos raros */
+  margin-left: auto;
   
-  width: 35px;         /* cámbialo al tamaño que quieras */
-  height: 45px;        /* ahora sí responde */
-  border-radius: 50%;  /* sigue siendo redondo */
-
-  background: #ff0044;
+  width: 35px;
+  height: 45px;
+  border-radius: 50%;
+  background: #ff0044; /* rojo de alerta */
   color: #fff;
   border: none;
-  font-size: 1.4rem;   /* también puedes escalar el símbolo "×" */
+  font-size: 1.4rem;
   cursor: pointer;
   z-index: 10;
 
@@ -65,11 +65,16 @@
   align-items: center;
   justify-content: center;
   padding: 0;
+  transition: background 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #cc0036; /* rojo más oscuro al hover */
 }
 
 /* Caja de cada cita */
 .cita-box {
-  background-color: #00b3e6;
+  background-color: #37429B; /* azul medio */
   color: white;
   padding: 6px 10px;
   border-radius: 6px;
@@ -78,6 +83,6 @@
 }
 
 .cita-pasada {
-  opacity: 0.5;          /* 👈 se ven opacas */
-  background-color: #999; /* opcional: color gris */
+  opacity: 0.6;          
+  background-color: #999; /* gris para citas pasadas */
 }

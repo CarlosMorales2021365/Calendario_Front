@@ -19,8 +19,6 @@ const LoginForm = () => {
       localStorage.setItem("token", res.token);
       localStorage.setItem("user", JSON.stringify(res.user));
 
-      console.log("Login exitoso ✅", res);
-
       navigate("/calendario"); // redirige a tu ruta
     } catch (err) {
       console.error("Error al iniciar sesión:", err);

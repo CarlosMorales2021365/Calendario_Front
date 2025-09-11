@@ -37,7 +37,6 @@ const Calendar = () => {
   useEffect(() => {
     const fetchCitas = async () => {
       const res = await getCitas();
-      console.log("Citas recibidas:", res); // depuración
       if (res.success) setCitasUsuario(res.citas);
       else setCitasUsuario([]);
     };

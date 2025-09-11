@@ -6,7 +6,7 @@
 .login-form label {
   text-align: left;
   margin-bottom: 5px;
-  color: #444;
+  color: #333333; /* gris oscuro */
   font-weight: 500;
 }
 
@@ -16,19 +16,28 @@
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
+  background-color: #f9f9f9; /* un gris muy suave para contraste */
+  color: #333333; /* texto gris oscuro */
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #37429B; /* azul medio */
+  box-shadow: 0 0 5px rgba(55, 66, 155, 0.5);
 }
 
 .login-form button {
   padding: 12px;
-  background-color: #000dff;
+  background-color: #13007C; /* azul profundo */
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .login-form button:hover {
-  background-color: #6b73ff;
+  background-color: #37429B; /* azul medio al hover */
+  transform: translateY(-2px);
 }
