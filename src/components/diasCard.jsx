@@ -57,7 +57,7 @@ export default function DiasCard({ day, month, year, onClose, citasUsuario }) {
                     <strong>Lugar:</strong> {c.lugar}
                   </p>
                   <p>
-                    <strong>Candidato:</strong> {c.candidato}
+                    <strong>Candidato:</strong> {c.candidato?.nombre}{" "} {c.candidato?.apellido}
                   </p>
                   <p>
                     <strong>Usuario:</strong> {c.usuario?.nombre}{" "}

@@ -85,11 +85,11 @@ const Calendar = () => {
                   <div className="calendar-day-number">{day}</div>
                   <div className="calendar-citas-preview">
   {citasDelDia.slice(0, 1).map((cita, idx) => (
-    <div key={idx} className="cita-mini">
-      {String(cita.hora).padStart(1, "0")}:
-      {String(cita.minuto).padStart(1, "0")} – {cita.candidato}
-    </div>
-  ))}
+  <div key={idx} className="cita-mini">
+    {String(cita.hora).padStart(2, "0")}:
+    {String(cita.minuto).padStart(2, "0")} – {cita.candidato?.nombre} {cita.candidato?.apellido}
+  </div>
+))}
   {citasDelDia.length > 1 && (
     <div className="cita-mini mas-citas">
       +{citasDelDia.length - 1} más
