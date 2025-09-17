@@ -33,6 +33,9 @@ const Calendar = () => {
     else { setMonth(month + 1); }
   };
 
+  const usuarioActual = JSON.parse(localStorage.getItem("usuarioActual") || "{}");
+  
+
   // Traer todas las citas al montar el componente
   useEffect(() => {
     const fetchCitas = async () => {
@@ -83,13 +86,19 @@ const Calendar = () => {
                   onClick={() => setSelectedDay(day)}
                 >
                   <div className="calendar-day-number">{day}</div>
-                  <div className="calendar-citas-preview">
+<div className="calendar-citas-preview">
   {citasDelDia.slice(0, 1).map((cita, idx) => (
-  <div key={idx} className="cita-mini">
-    {String(cita.hora).padStart(2, "0")}:
-    {String(cita.minuto).padStart(2, "0")} – {cita.candidato?.nombre} {cita.candidato?.apellido}
-  </div>
-))}
+    <div key={idx} className="cita-mini">
+      {String(cita.hora).padStart(2, "0")}:
+      {String(cita.minuto).padStart(2, "0")} – 
+   {usuarioActual.role === "RECLUTADOR_ROLE"
+  ? [cita.candidato?.nombre, cita.candidato?.apellido].filter(Boolean).join(" ")
+  : usuarioActual.role === "CANDIDATO_ROLE"
+    ? [cita.usuario?.nombre, cita.usuario?.apellido].filter(Boolean).join(" ")
+    : ""
+}
+    </div>
+  ))}
   {citasDelDia.length > 1 && (
     <div className="cita-mini mas-citas">
       +{citasDelDia.length - 1} más

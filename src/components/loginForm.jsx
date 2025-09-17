@@ -17,7 +17,7 @@ const LoginForm = () => {
 
       // ✅ guardar token y usuario en localStorage
       localStorage.setItem("token", res.token);
-      localStorage.setItem("user", JSON.stringify(res.user));
+      localStorage.setItem("usuarioActual", JSON.stringify(res.user));
 
       navigate("/calendario"); // redirige a tu ruta
     } catch (err) {
