@@ -34,7 +34,14 @@ const Calendar = () => {
   };
 
   const usuarioActual = JSON.parse(localStorage.getItem("usuarioActual") || "{}");
-  
+
+  // Función para saber si una cita está vencida
+  const esCitaVencida = (cita) => {
+    // cita.fecha en formato DD-MM-YYYY
+    const [dia, mes, anio] = cita.fecha.split("-");
+    const fechaCita = new Date(anio, mes - 1, dia, cita.hora, cita.minuto);
+    return fechaCita < new Date();
+  };
 
   // Traer todas las citas al montar el componente
   useEffect(() => {
@@ -45,6 +52,10 @@ const Calendar = () => {
     };
     fetchCitas();
   }, []);
+
+  if (!usuarioActual.role) {
+    return <div>Debes iniciar sesión para ver el calendario.</div>;
+  }
 
   return (
     <>
@@ -79,6 +90,10 @@ const Calendar = () => {
                 .filter((c) => c.fecha === fechaDisplay)
                 .sort((a, b) => a.hora - b.hora || a.minuto - b.minuto);
 
+              // Selecciona la próxima cita no vencida, o la última si todas están vencidas
+              const proximaCita = citasDelDia.find(cita => !esCitaVencida(cita));
+              const citaMostrar = proximaCita || citasDelDia[citasDelDia.length - 1];
+
               return (
                 <div
                   key={i}
@@ -86,25 +101,27 @@ const Calendar = () => {
                   onClick={() => setSelectedDay(day)}
                 >
                   <div className="calendar-day-number">{day}</div>
-<div className="calendar-citas-preview">
-  {citasDelDia.slice(0, 1).map((cita, idx) => (
-    <div key={idx} className="cita-mini">
-      {String(cita.hora).padStart(2, "0")}:
-      {String(cita.minuto).padStart(2, "0")} – 
-   {usuarioActual.role === "RECLUTADOR_ROLE"
-  ? [cita.candidato?.nombre, cita.candidato?.apellido].filter(Boolean).join(" ")
-  : usuarioActual.role === "CANDIDATO_ROLE"
-    ? [cita.usuario?.nombre, cita.usuario?.apellido].filter(Boolean).join(" ")
-    : ""
-}
-    </div>
-  ))}
-  {citasDelDia.length > 1 && (
-    <div className="cita-mini mas-citas">
-      +{citasDelDia.length - 1} más
-    </div>
-  )}
-</div>
+                  <div className="calendar-citas-preview">
+                    {citaMostrar && (
+                      <div
+                        className={`cita-mini${esCitaVencida(citaMostrar) ? " cita-vencida" : ""}`}
+                      >
+                        {String(citaMostrar.hora).padStart(2, "0")}:
+                        {String(citaMostrar.minuto).padStart(2, "0")} – 
+                        {usuarioActual.role === "RECLUTADOR_ROLE"
+                          ? [citaMostrar.candidato?.nombre, citaMostrar.candidato?.apellido].filter(Boolean).join(" ")
+                          : usuarioActual.role === "CANDIDATO_ROLE"
+                            ? [citaMostrar.usuario?.nombre, citaMostrar.usuario?.apellido].filter(Boolean).join(" ")
+                            : ""
+                        }
+                      </div>
+                    )}
+                    {citasDelDia.length > 1 && (
+                      <div className="cita-mini mas-citas">
+                        +{citasDelDia.length - 1} más
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}
