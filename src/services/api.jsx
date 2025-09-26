@@ -23,7 +23,6 @@ apiCitas.interceptors.request.use(
         if (payload.exp < now) {
           localStorage.removeItem("token");
           toast.error("⚠️ Tu sesión ha expirado");
-          // Lanzar evento global
           window.dispatchEvent(new Event("logout"));
           return Promise.reject(new Error("Token expirado"));
         }
@@ -57,6 +56,7 @@ apiCitas.interceptors.response.use(
 
 // === ENDPOINTS ===
 
+// Auth
 export const login = async (credentials) => {
   const res = await apiCitas.post("/auth/login", credentials);
   return res.data;
@@ -67,6 +67,7 @@ export const register = async (userData) => {
   return res.data;
 };
 
+// Citas
 export const getCitas = async () => {
   try {
     const res = await apiCitas.get("/citas/listarCitas", {
@@ -87,6 +88,28 @@ export const getCitasByFecha = async (fecha) => {
 export const createCita = async (citaData) => {
   const res = await apiCitas.post("/citas/crearCita", citaData);
   return res.data;
+};
+
+// Obtener reclutadores de la misma empresa
+export const getReclutadoresEmpresa = async () => {
+  try {
+    const res = await apiCitas.get("/citas/reclutadoresEmpresa");
+    return res.data;
+  } catch (err) {
+    console.error("Error en getReclutadoresEmpresa:", err);
+    return { success: false, reclutadores: [] };
+  }
+};
+
+// Mover/transferir cita a otro reclutador
+export const moverCita = async (data) => {
+  try {
+    const res = await apiCitas.post("/citas/moverCita", data);
+    return res.data;
+  } catch (err) {
+    console.error("Error en moverCita:", err);
+    return { success: false, msg: "No se pudo transferir la cita" };
+  }
 };
 
 export default apiCitas;

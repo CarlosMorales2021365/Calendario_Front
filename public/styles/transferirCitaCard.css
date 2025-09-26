@@ -1,0 +1,96 @@
+.transferir-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.transferir-card {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  width: 400px;
+  max-width: 90%;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  border: none;
+  background: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #333;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* ======= Selects ======= */
+.transferir-select {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0 16px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  background-color: #f9f9f9;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.transferir-select:focus {
+  border-color: #13007C;
+  background-color: #fff;
+  box-shadow: 0 0 6px rgba(76, 175, 239, 0.4);
+}
+
+.transferir-select option {
+  padding: 10px;
+  background: #fff;
+  color: #333;
+  font-size: 14px;
+}
+
+.transferir-select option:hover {
+  background: #13007C;
+  color: #fff;
+}
+
+/* ======= Botón ======= */
+.transferir-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #13007C;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.transferir-btn:hover {
+  background-color: #13007C;
+}
+
+/* ======= Animación ======= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}

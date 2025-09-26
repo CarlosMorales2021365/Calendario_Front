@@ -161,3 +161,39 @@
   color: #fff;
   opacity: 0.7;
 }
+
+.calendar-wrapper {
+  display: flex;
+  gap: 20px; /* espacio entre calendario y botón */
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.transfer-button-container {
+  position: relative; /* para que el card flotante se ubique relativo a este */
+}
+
+.transfer-button-container button {
+  background: #37429B;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.transfer-button-container button:hover {
+  background: #13007C;
+}
+
+.transfer-card-floating {
+  position: absolute;
+  top: 40px; /* justo debajo del botón */
+  left: 0;
+  z-index: 1000;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 16px;
+}
