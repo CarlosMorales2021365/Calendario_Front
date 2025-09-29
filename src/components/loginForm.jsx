@@ -19,7 +19,7 @@ const LoginForm = () => {
       localStorage.setItem("token", res.token);
       localStorage.setItem("usuarioActual", JSON.stringify(res.user));
 
-      navigate("/calendario"); // redirige a tu ruta
+      navigate("/citas"); // redirige a tu ruta
     } catch (err) {
       console.error("Error al iniciar sesión:", err);
       setError("Correo o contraseña incorrectos");

@@ -1,0 +1,62 @@
+.citas-page {
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bienvenido {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.citas-layout {
+  display: flex;
+  flex-direction: column; /* 🔹 por defecto en móviles */
+  gap: 20px;
+  width: 100%;
+}
+
+.citas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.citas-calendar-btn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.citas-calendar-btn button {
+  background: #007bff;
+  color: white;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.2s ease-in-out;
+}
+
+.citas-calendar-btn button:hover {
+  background: #0056b3;
+}
+
+/* 📌 Estilos para pantallas grandes (desktop) */
+@media (min-width: 1024px) {
+  .citas-layout {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* citas a la izquierda, botón a la derecha */
+    align-items: start;
+  }
+
+  .citas-list {
+    max-height: calc(100vh - 200px); /* ajusta altura según espacio */
+  }
+}

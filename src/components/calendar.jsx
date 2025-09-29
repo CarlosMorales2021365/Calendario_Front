@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import DiasCard from "../components/diasCard";
-import TransferirCita from "../components/transferirCitaCard.jsx";
+import DiasCard from "./diasCard.jsx";
+import TransferirCita from "./transferirCitaCard.jsx";
 import { getCitas } from "../services/api.jsx";
 import "../../public/styles/calendar.css";
 
@@ -45,8 +45,6 @@ const Calendar = () => {
 
   return (
     <>
-      <br/><br/>
-
       {usuarioActual.role==="RECLUTADOR_ROLE" && (
         <TransferirCita 
           show={showTransferir} 
