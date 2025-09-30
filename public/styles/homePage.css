@@ -7,12 +7,14 @@ html, body {
 
 /* Fondo principal */
 .homepage-container {
-  height: 90vh;
-  width: 70vh;
+  min-height: 100vh; /* 🔹 que siempre ocupe toda la altura */
+  width: 100%;       /* 🔹 ocupa todo el ancho */
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #37429B, #13007C); /* azul medio → azul profundo */
+  background: linear-gradient(135deg, #37429B, #13007C);
+  padding: 20px; /* 🔹 evita que se pegue a los bordes en móvil */
+  box-sizing: border-box;
 }
 
 /* Tarjeta de login */
@@ -22,17 +24,18 @@ html, body {
   border-radius: 12px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   text-align: center;
-  width: 360px;
+  width: 100%;        /* 🔹 base flexible */
+  max-width: 360px;   /* 🔹 límite en pantallas grandes */
 }
 
 .login-card h1 {
   margin-bottom: 10px;
-  color: #13007C; /* azul profundo */
+  color: #13007C;
 }
 
 .login-card p {
   margin-bottom: 20px;
-  color: #333333; /* gris oscuro */
+  color: #333333;
   font-size: 14px;
 }
 
@@ -45,7 +48,7 @@ html, body {
 .login-form label {
   text-align: left;
   margin-bottom: 5px;
-  color: #333333; /* gris oscuro */
+  color: #333333;
   font-weight: 500;
 }
 
@@ -55,20 +58,20 @@ html, body {
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
-  background-color: #f9f9f9; /* gris claro para contraste */
+  background-color: #f9f9f9;
   color: #333333;
 }
 
 .login-form input:focus {
   outline: none;
-  border-color: #37429B; /* azul medio */
+  border-color: #37429B;
   box-shadow: 0 0 5px rgba(55, 66, 155, 0.5);
 }
 
 /* Botón */
 .login-form button {
   padding: 12px;
-  background-color: #13007C; /* azul profundo */
+  background-color: #13007C;
   color: white;
   border: none;
   border-radius: 6px;
@@ -78,6 +81,36 @@ html, body {
 }
 
 .login-form button:hover {
-  background-color: #37429B; /* azul medio */
+  background-color: #37429B;
   transform: translateY(-2px);
+}
+
+/* 📱 Móviles */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 25px 20px;
+    max-width: 90%; /* 🔹 ocupa casi toda la pantalla */
+  }
+
+  .login-card h1 {
+    font-size: 1.3rem;
+  }
+
+  .login-card p {
+    font-size: 13px;
+  }
+}
+
+/* 📊 Tablets */
+@media (min-width: 481px) and (max-width: 1023px) {
+  .login-card {
+    max-width: 420px;
+  }
+}
+
+/* 💻 Escritorio */
+@media (min-width: 1024px) {
+  .login-card {
+    max-width: 400px;
+  }
 }

@@ -10,6 +10,8 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 10px; /* 🔹 evita que en móviles se pegue a los bordes */
+  box-sizing: border-box;
 }
 
 /* Contenedor principal de la tarjeta */
@@ -26,6 +28,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  box-sizing: border-box;
 }
 
 /* Contenedor del cuerpo */
@@ -40,7 +43,7 @@
 /* Mensaje cuando no hay citas */
 .sin-citas {
   font-size: 0.95rem;
-  color: #333333; /* gris oscuro */
+  color: #333333;
   text-align: center;
   margin-top: 20px;
 }
@@ -50,17 +53,15 @@
   position: sticky;
   top: 8px;
   margin-left: auto;
-  
   width: 35px;
-  height: 45px;
+  height: 35px;
   border-radius: 50%;
-  background: #ff0044; /* rojo de alerta */
+  background: #ff0044;
   color: #fff;
   border: none;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   cursor: pointer;
   z-index: 10;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,12 +70,12 @@
 }
 
 .close-btn:hover {
-  background: #cc0036; /* rojo más oscuro al hover */
+  background: #cc0036;
 }
 
 /* Caja de cada cita */
 .cita-box {
-  background-color: #37429B; /* azul medio */
+  background-color: #37429B;
   color: white;
   padding: 6px 10px;
   border-radius: 6px;
@@ -84,5 +85,36 @@
 
 .cita-pasada {
   opacity: 0.6;          
-  background-color: #999; /* gris para citas pasadas */
+  background-color: #999;
+}
+
+/* 📱 Móviles */
+@media (max-width: 480px) {
+  .dias-card {
+    width: 95%;
+    height: auto;
+    max-height: 85vh; /* 🔹 scroll si hay muchas citas */
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .cita-box {
+    font-size: 0.85rem;
+  }
+}
+
+/* 📊 Tablets */
+@media (min-width: 481px) and (max-width: 1023px) {
+  .dias-card {
+    width: 400px;
+    height: 450px;
+  }
+}
+
+/* 💻 Escritorio */
+@media (min-width: 1024px) {
+  .dias-card {
+    width: 360px;
+    height: 420px;
+  }
 }

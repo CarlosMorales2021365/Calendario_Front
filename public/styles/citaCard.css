@@ -5,16 +5,68 @@
   margin-bottom: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   width: 100%;
-  max-width: 600px; /* más largo */
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto; /* 🔹 centra en pantallas grandes */
 }
 
-.cita-header {
+.cita-header {  
   font-weight: bold;
   margin-bottom: 8px;
   color: #333;
+  font-size: 1rem;
 }
 
 .cita-body {
   font-size: 0.95rem;
   color: #555;
+  line-height: 1.4;
+}
+
+/* 📱 Móviles */
+@media (max-width: 599px) {
+  .cita-card {
+    padding: 12px;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+
+  .cita-header {
+    font-size: 0.95rem;
+  }
+
+  .cita-body {
+    font-size: 0.85rem;
+  }
+}
+
+/* 📊 Tablets */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .cita-card {
+    max-width: 90%; /* se adapta mejor en horizontal */
+  }
+
+  .cita-header {
+    font-size: 1.05rem;
+  }
+
+  .cita-body {
+    font-size: 0.9rem;
+  }
+}
+
+/* 💻 Escritorio grande */
+@media (min-width: 1024px) {
+  .cita-card {
+    max-width: 700px; /* más ancho en pantallas grandes */
+    padding: 20px;
+  }
+
+  .cita-header {
+    font-size: 1.2rem;
+  }
+
+  .cita-body {
+    font-size: 1rem;
+  }
 }

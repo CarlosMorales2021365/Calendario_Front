@@ -41,3 +41,62 @@
   background-color: #37429B; /* azul medio al hover */
   transform: translateY(-2px);
 }
+
+/* 📱 Móviles */
+@media (max-width: 480px) {
+  .login-form {
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: none; /* más simple en móvil */
+  }
+
+  .login-form label {
+    font-size: 0.9rem;
+  }
+
+  .login-form input {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .login-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* 📊 Tablets */
+@media (min-width: 481px) and (max-width: 1023px) {
+  .login-form {
+    max-width: 500px;
+    padding: 25px;
+  }
+
+  .login-form input {
+    font-size: 15px;
+  }
+
+  .login-form button {
+    font-size: 15px;
+  }
+}
+
+/* 💻 Escritorio */
+@media (min-width: 1024px) {
+  .login-form {
+    max-width: 450px;
+    padding: 30px;
+  }
+
+  .login-form label {
+    font-size: 1rem;
+  }
+
+  .login-form input {
+    font-size: 15px;
+  }
+
+  .login-form button {
+    font-size: 16px;
+  }
+}

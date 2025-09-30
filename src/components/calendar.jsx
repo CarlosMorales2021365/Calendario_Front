@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import DiasCard from "./diasCard.jsx";
+import DiasCard from "./diasCard";
 import TransferirCita from "./transferirCitaCard.jsx";
 import { getCitas } from "../services/api.jsx";
 import "../../public/styles/calendar.css";
@@ -34,8 +34,8 @@ const Calendar = () => {
   };
 
   useEffect(()=>{
-    const fetchCitas=async()=>{
-      const res=await getCitas();
+    const fetchCitas = async () => {
+      const res = await getCitas();
       setCitasUsuario(res.success?res.citas:[]);
     };
     fetchCitas();
@@ -45,6 +45,7 @@ const Calendar = () => {
 
   return (
     <>
+      <br/><br/>
       {usuarioActual.role==="RECLUTADOR_ROLE" && (
         <TransferirCita 
           show={showTransferir} 
@@ -82,17 +83,27 @@ const Calendar = () => {
               return (
                 <div key={i} className={`calendar-cell ${citasDelDia.length>0?"tiene-cita":""}`} onClick={()=>setSelectedDay(day)}>
                   <div className="calendar-day-number">{day}</div>
+
                   <div className="calendar-citas-preview">
-                    {citaMostrar && (
-                      <div className={`cita-mini${esCitaVencida(citaMostrar)?" cita-vencida":""}`}>
-                        {String(citaMostrar.hora).padStart(2,"0")}:{String(citaMostrar.minuto).padStart(2,"0")} – 
-                        {usuarioActual.role==="RECLUTADOR_ROLE"
-                          ? [citaMostrar.candidato?.nombre,citaMostrar.candidato?.apellido].filter(Boolean).join(" ")
-                          : [citaMostrar.usuario?.nombre,citaMostrar.usuario?.apellido].filter(Boolean).join(" ")}
-                      </div>
+                    {citasDelDia.length > 0 && (
+                      <>
+                        {/* Primera cita (oculta en móviles) */}
+                        <div className={`cita-mini primera-cita${esCitaVencida(citaMostrar)?" cita-vencida":""}`}>
+                          {`${citaMostrar.hora.toString().padStart(2,"0")}:${citaMostrar.minuto.toString().padStart(2,"0")} – ${
+                            usuarioActual.role==="RECLUTADOR_ROLE"
+                              ? [citaMostrar.candidato?.nombre,citaMostrar.candidato?.apellido].filter(Boolean).join(" ")
+                              : [citaMostrar.usuario?.nombre,citaMostrar.usuario?.apellido].filter(Boolean).join(" ")
+                          }`}
+                        </div>
+
+                        {/* Burbuja de cantidad total */}
+                        <div className="cita-mini mas-citas">
+                          {citasDelDia.length} {citasDelDia.length>1?"citas":"cita"}
+                        </div>
+                      </>
                     )}
-                    {citasDelDia.length>1 && <div className="cita-mini mas-citas">+{citasDelDia.length-1} más</div>}
                   </div>
+
                 </div>
               );
             })}

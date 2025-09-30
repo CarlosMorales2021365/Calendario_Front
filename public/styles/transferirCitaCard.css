@@ -86,11 +86,54 @@ h2 {
 }
 
 .transferir-btn:hover {
-  background-color: #13007C;
+  background-color: #0d005c;
 }
 
 /* ======= Animación ======= */
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
+}
+
+/* 📱 Móviles */
+@media (max-width: 480px) {
+  .transferir-card {
+    width: 90%;      /* más pequeño que en escritorio */
+    padding: 20px;   /* reduce el padding */
+    border-radius: 12px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .transferir-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .transferir-select {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+}
+
+/* 📊 Tablets */
+@media (min-width: 481px) and (max-width: 1023px) {
+  .transferir-card {
+    width: 80%;
+    max-width: 500px;
+    padding: 25px;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* 💻 Escritorio */
+@media (min-width: 1024px) {
+  .transferir-card {
+    width: 400px; /* se mantiene centrado */
+  }
 }
