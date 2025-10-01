@@ -98,7 +98,7 @@ h2 {
 /* 📱 Móviles */
 @media (max-width: 480px) {
   .transferir-card {
-    width: 90%;      /* más pequeño que en escritorio */
+    width: 70%;      /* más pequeño que en escritorio */
     padding: 20px;   /* reduce el padding */
     border-radius: 12px;
   }

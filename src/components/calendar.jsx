@@ -12,6 +12,14 @@ const Calendar = () => {
   const [citasUsuario, setCitasUsuario] = useState([]);
   const [showTransferir, setShowTransferir] = useState(false);
 
+  // 👇 Detectar si es dispositivo pequeño
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 480);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
                   "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 
@@ -77,9 +85,6 @@ const Calendar = () => {
               const citasDelDia=citasUsuario.filter(c=>c.fecha===fechaDisplay)
                 .sort((a,b)=>a.hora-b.hora || a.minuto-b.minuto);
 
-              const proximaCita=citasDelDia.find(c=>!esCitaVencida(c));
-              const citaMostrar=proximaCita||citasDelDia[citasDelDia.length-1];
-
               return (
                 <div key={i} className={`calendar-cell ${citasDelDia.length>0?"tiene-cita":""}`} onClick={()=>setSelectedDay(day)}>
                   <div className="calendar-day-number">{day}</div>
@@ -87,19 +92,30 @@ const Calendar = () => {
                   <div className="calendar-citas-preview">
                     {citasDelDia.length > 0 && (
                       <>
-                        {/* Primera cita (oculta en móviles) */}
-                        <div className={`cita-mini primera-cita${esCitaVencida(citaMostrar)?" cita-vencida":""}`}>
-                          {`${citaMostrar.hora.toString().padStart(2,"0")}:${citaMostrar.minuto.toString().padStart(2,"0")} – ${
-                            usuarioActual.role==="RECLUTADOR_ROLE"
-                              ? [citaMostrar.candidato?.nombre,citaMostrar.candidato?.apellido].filter(Boolean).join(" ")
-                              : [citaMostrar.usuario?.nombre,citaMostrar.usuario?.apellido].filter(Boolean).join(" ")
-                          }`}
-                        </div>
-
-                        {/* Burbuja de cantidad total */}
-                        <div className="cita-mini mas-citas">
-                          {citasDelDia.length} {citasDelDia.length>1?"citas":"cita"}
-                        </div>
+                        {isMobile ? (
+                          // 👇 En móviles, solo el total
+                          <div className="cita-mini mas-citas">
+                            {citasDelDia.length} {citasDelDia.length>1?"citas":"cita"}
+                          </div>
+                        ) : (
+                          // 👇 En escritorio/tablet, mostrar citas + burbuja si hay más
+                          <>
+                            {citasDelDia.slice(0,1).map((cita,idx)=>(
+                              <div key={idx} className={`cita-mini${esCitaVencida(cita)?" cita-vencida":""}`}>
+                                {`${cita.hora.toString().padStart(1,"0")}:${cita.minuto.toString().padStart(1,"0")} – ${
+                                  usuarioActual.role==="RECLUTADOR_ROLE"
+                                    ? [cita.candidato?.nombre,cita.candidato?.apellido].filter(Boolean).join(" ")
+                                    : [cita.usuario?.nombre,cita.usuario?.apellido].filter(Boolean).join(" ")
+                                }`}
+                              </div>
+                            ))}
+                            {citasDelDia.length > 1 && (
+                              <div className="cita-mini mas-citas">
+                                +{citasDelDia.length - 1} más
+                              </div>
+                            )}
+                          </>
+                        )}
                       </>
                     )}
                   </div>

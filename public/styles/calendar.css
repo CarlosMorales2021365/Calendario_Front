@@ -335,3 +335,32 @@
     padding: 2px 4px;
   }
 }
+
+/* 📱 Surface Duo y pantallas medianas-pequeñas */
+@media (max-width: 600px) {
+  .calendar-container {
+    padding: 8px;
+    overflow-x: auto; /* evita que se corte */
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(7, minmax(40px, 1fr)); /* celdas más pequeñas */
+    gap: 4px;
+  }
+
+  .calendar-cell {
+    font-size: 0.75rem;   /* texto más pequeño */
+    padding: 4px;         /* menos padding en las celdas */
+    min-height: 60px;     /* altura más reducida */
+  }
+
+  .calendar-header {
+    font-size: 0.8rem;    /* días de la semana más pequeños */
+  }
+
+  .calendar-citas-preview .cita-mini {
+    font-size: 0.6rem; 
+    padding: 2px 4px;
+  }
+}
+
